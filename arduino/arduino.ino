@@ -63,7 +63,7 @@ void loop() {
     }
   }
 
-  delay(4000); // Small delay for stability
+  delay(5000); // Small delay for stability
 }
 
 // Function to measure distance using an ultrasonic sensor
