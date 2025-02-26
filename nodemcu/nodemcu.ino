@@ -1,7 +1,5 @@
 #include <ESP8266WiFi.h>
 #include <FirebaseESP8266.h>
-//#include <NTPClient.h>
-//#include <WiFiUdp.h>
 
 // Wi-Fi credentials
 #define WIFI_SSID "BUBT FAMILY"
@@ -136,11 +134,11 @@ void loop() {
     // Prepare JSON for Firebase
     int capacity = 100;    // Example capacity value
     int capacityType = 11; // Example capacity type
+    String binKey = "999"; // Unique key for the dustbin
 
     FirebaseJson json;
     json.set("bin_id", "1111");
     json.set("name", "Real Dustbin");
-    // json.set("distance1", distance1);
     json.set("fill_level", distance2);
     json.set("latitude", latitude);
     json.set("longitude", longitude);
@@ -148,8 +146,8 @@ void loop() {
     json.set("capacity", capacity);
     json.set("data_updated_at", timestamp);  // Using formatted timestamp
 
-    // Send data to Firebase
-    if (Firebase.updateNode(firebaseData, "/dustbins", json)) {
+    // Send data to Firebase under key "999"
+    if (Firebase.updateNode(firebaseData, "/dustbins/" + binKey, json)) {
       Serial.println("\n✅ Data successfully updated in Firebase:");
       String jsonString;
       json.toString(jsonString, true);
